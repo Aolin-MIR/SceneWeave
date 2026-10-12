@@ -1,0 +1,37 @@
+{
+  "repository": "https://github.com/mozhu621/SuperWriter",
+  "commit": "436149d87908a462b5f74270cb43d797163f6e17",
+  "files": [
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/mozhu621/SuperWriter/436149d87908a462b5f74270cb43d797163f6e17/README.md",
+      "sha256": "926cf5a145ad27a52e35309007ff7956b0937bffdeb6f21c219e6a5b708b4f16"
+    },
+    {
+      "path": "Inference/superwrite_gen.py",
+      "url": "https://raw.githubusercontent.com/mozhu621/SuperWriter/436149d87908a462b5f74270cb43d797163f6e17/Inference/superwrite_gen.py",
+      "sha256": "284e9909bd150b8c5b1420415cd9a75e5efc695b4a4e79b0b280f997f23ac144"
+    },
+    {
+      "path": "Agent/Super_write_agent.py",
+      "url": "https://raw.githubusercontent.com/mozhu621/SuperWriter/436149d87908a462b5f74270cb43d797163f6e17/Agent/Super_write_agent.py",
+      "sha256": "f9af012a8ff07823d24790e1ace25840863bfe54b411a171de956878e9133734"
+    }
+  ],
+  "status": "archived_only_not_executed",
+  "inference_policy": {
+    "gateway": "company Wiki",
+    "source": "wiki",
+    "model": "gpt-6-luna",
+    "allow_other_models": false,
+    "fallback": false
+  },
+  "required_changes": [
+    "Replace all inference transports with existing experimental_inference gateway.",
+    "Remove paid automatic retries and native-model-specific think-tag validators; archive this protocol deviation.",
+    "Do not impose historical minimum length or artificial output cap.",
+    "Preserve method stages and prompts; separate task adaptation from transport changes.",
+    "Never import or execute unmodified upstream modules with network-capable code."
+  ],
+  "scope": "Official source reference; not trained SuperWriter-LM reproduction."
+}

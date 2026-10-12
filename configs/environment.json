@@ -1,0 +1,17 @@
+{
+  "python": "3.12.13",
+  "cuda_runtime": "12.6",
+  "training_packages": {
+    "torch": "2.7.1+cu126",
+    "transformers": "5.19.0",
+    "peft": "0.21.2",
+    "accelerate": "1.15.0",
+    "safetensors": "0.8.0",
+    "huggingface-hub": "2.2.0",
+    "numpy": "2.5.4",
+    "flash-linear-attention": "0.5.2"
+  },
+  "reference_training_gpu": "NVIDIA H100 80GB",
+  "gpu_requirements": "Profile full sequence inputs on the actual device; do not assume the reference microbatch fits another GPU",
+  "cpu_tests_require_gpu": false
+}

@@ -1,0 +1,139 @@
+{
+  "source_repository": "Aolin-MIR/script-generator-deploy",
+  "created_at_beijing": "2026-10-12T11:10:42.728632+08:00",
+  "files": [
+    {
+      "upstream_project_path": "experiments/adaptation_entry_algorithms.py",
+      "original_sha256": "0f18e1b58c862570fb7aa6831ebc8e8bab9d2c4705b0725f963cd10afefef2aa",
+      "export_path": "experiments/adaptation_entry_algorithms.py",
+      "export_sha256": "0f18e1b58c862570fb7aa6831ebc8e8bab9d2c4705b0725f963cd10afefef2aa",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/adaptation_entry_selection.py",
+      "original_sha256": "62137131d09a4869c76fde97162f4db0ef257f3904e2c20befad50550a4ad9dd",
+      "export_path": "experiments/adaptation_entry_selection.py",
+      "export_sha256": "62137131d09a4869c76fde97162f4db0ef257f3904e2c20befad50550a4ad9dd",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/adaptation_system_contract.py",
+      "original_sha256": "ac7119fb72f91a77f194d867811be016b5f02fb4dd8d2fd90c4831f8978e366a",
+      "export_path": "experiments/adaptation_system_contract.py",
+      "export_sha256": "ac7119fb72f91a77f194d867811be016b5f02fb4dd8d2fd90c4831f8978e366a",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/adaptation_feedback_contract.py",
+      "original_sha256": "45105a3048e70fddbbfca96dcb201176ebfb663792d234bde0091cc9d91cd011",
+      "export_path": "experiments/adaptation_feedback_contract.py",
+      "export_sha256": "45105a3048e70fddbbfca96dcb201176ebfb663792d234bde0091cc9d91cd011",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/scene_entry_mechanism_controls.py",
+      "original_sha256": "452eecab0b50deb4aa3d1d4150dae6c384e481938969ab8c21efe0108644949e",
+      "export_path": "experiments/scene_entry_mechanism_controls.py",
+      "export_sha256": "452eecab0b50deb4aa3d1d4150dae6c384e481938969ab8c21efe0108644949e",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/sceneweave_audience_selection.py",
+      "original_sha256": "03a9708c75512a69e27f7736d693905e502e986735b33fbd37976434c73ab89f",
+      "export_path": "experiments/sceneweave_audience_selection.py",
+      "export_sha256": "03a9708c75512a69e27f7736d693905e502e986735b33fbd37976434c73ab89f",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/local_adaptation_writer_interface.py",
+      "original_sha256": "d57029cf801de814367ac229b81176a853ec6f655d1519c4e985988b539f4ffc",
+      "export_path": "experiments/local_adaptation_writer_interface.py",
+      "export_sha256": "d57029cf801de814367ac229b81176a853ec6f655d1519c4e985988b539f4ffc",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/run_adaptation_entry.py",
+      "original_sha256": "9c324ab4c2b9ad80e49ba5ac9284aaafe6b4aa0801b9e3e539df7a9730f259bf",
+      "export_path": "experiments/run_adaptation_entry.py",
+      "export_sha256": "4c0c196a887f56ebcad2a029836e7e6858d24be56b0ffe73736acb9970faf848",
+      "packaging_changes": [
+        "Portable output and baseline prompt paths"
+      ]
+    },
+    {
+      "upstream_project_path": "experiments/run_scene_first_matched.py",
+      "original_sha256": "e9267f63730543cbb9f4f1b45d51b817ae9ae04c4b9ae2d4ee4804fabf63c306",
+      "export_path": "experiments/run_scene_first_matched.py",
+      "export_sha256": "f57a5186b21d075f0e6fd86dbde7a192b84d5c8f0245ffd01df431a836643431",
+      "packaging_changes": [
+        "Portable comparison output"
+      ]
+    },
+    {
+      "upstream_project_path": "experiments/train_local_writer.py",
+      "original_sha256": "6421539c39b15416f995f9389fb3144180df583bf5e85929c057d27cb957b37d",
+      "export_path": "experiments/train_local_writer.py",
+      "export_sha256": "2b3ceb2b2e26ee414690668aef410cd79e2954b9015d6bdcc2738fa4ae62d663",
+      "packaging_changes": [
+        "Portable writer dataset path",
+        "Apply the existing author-approved full-epoch patience rule without the obsolete LR-floor prerequisite"
+      ]
+    },
+    {
+      "upstream_project_path": "experiments/local_writer_inference.py",
+      "original_sha256": "da9c8f86802cbbdab5fd595add95de409f43d80535aae1e2f594a201fea71413",
+      "export_path": "experiments/local_writer_inference.py",
+      "export_sha256": "da9c8f86802cbbdab5fd595add95de409f43d80535aae1e2f594a201fea71413",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/script_preference_backends.py",
+      "original_sha256": "1f15838e19928aaa82fb64be176b72a044a16518aac22ddbdba3bb73d29a5a09",
+      "export_path": "experiments/script_preference_backends.py",
+      "export_sha256": "c6d353deee21a542a902d0b40a6d4d61ea7545416edeb6c1e6b6e155f7429012",
+      "packaging_changes": [
+        "Portable pinned upstream implementation"
+      ]
+    },
+    {
+      "upstream_project_path": "experiments/train_contextual_script_comparator.py",
+      "original_sha256": "c31b768d150b7ee0e7f682aa6082ff0a48f6f5f45261a0733ef670faa00eb7da",
+      "export_path": "experiments/train_contextual_script_comparator.py",
+      "export_sha256": "c31b768d150b7ee0e7f682aa6082ff0a48f6f5f45261a0733ef670faa00eb7da",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/train_adaptation_reward.py",
+      "original_sha256": "d959733421a479878653da174555e89437f03fa1472c12f84f7b91ca311ec7c5",
+      "export_path": "experiments/train_adaptation_reward.py",
+      "export_sha256": "d959733421a479878653da174555e89437f03fa1472c12f84f7b91ca311ec7c5",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/local_litbench_review.py",
+      "original_sha256": "df597906780f11967ea7ba28ff6adc7d81aed0b0c4063bc9dd80bd5425b08999",
+      "export_path": "experiments/local_litbench_review.py",
+      "export_sha256": "b6ee892230849b4e89e8a7ae82535b0e628e7ad8fbca9620b742b704c7251cad",
+      "packaging_changes": [
+        "Portable verifier output"
+      ]
+    },
+    {
+      "upstream_project_path": "experiments/official_superwriter_local.py",
+      "original_sha256": "921f2b92bb7b3de23cfdf6f4b9141adf09c446afd0967a539292edbbf85d59af",
+      "export_path": "experiments/official_superwriter_local.py",
+      "export_sha256": "921f2b92bb7b3de23cfdf6f4b9141adf09c446afd0967a539292edbbf85d59af",
+      "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/prepare_local_writer_data.py",
+      "original_sha256": "d4cfa8b8e67a8876f3496fad54ae3afda49f6cec0107d1c5676282b8aa81e4e7",
+      "export_path": "experiments/prepare_local_writer_data.py",
+      "packaging_changes": [
+        "Keep exact original templates, serialization and record helpers; omit unrelated source acquisition commands"
+      ]
+    }
+  ],
+  "training_started": false,
+  "model_files_copied": false
+}

@@ -1,0 +1,20 @@
+{
+  "writer": {
+    "repo_id": "Qwen/Qwen3.5-9B",
+    "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "local_directory": "models/qwen3_5_9b"
+  },
+  "preference_comparator": {
+    "repo_id": "StrandsAgents/strands-decider-2B-hobson-v19",
+    "use_original_pointer_head": true,
+    "local_directory": "models/strands_decider_2b_v19",
+    "checkpoint_required_for_trained_evaluation": true,
+    "revision": "bb282d786bc251fd4e3068de3ada9ddbb38127cd"
+  },
+  "api": {
+    "model": "gpt-6-luna",
+    "source": "wiki",
+    "fallback": false
+  },
+  "weights_distributed": false
+}

@@ -1,0 +1,12 @@
+-r requirements.txt
+torch==2.7.1
+transformers==5.19.0
+peft==0.21.2
+accelerate==1.15.0
+safetensors==0.8.0
+huggingface-hub==2.2.0
+numpy==2.5.4
+flash-linear-attention==0.5.2
+
+pydantic>=2.7
+PyYAML>=6.0

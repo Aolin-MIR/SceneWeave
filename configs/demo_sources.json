@@ -1,0 +1,28 @@
+{
+  "units": [
+    {
+      "id": "library-demo",
+      "split": "dev",
+      "author_group": "authored-demo",
+      "source": {
+        "work_id": "authored-demo-library",
+        "source_text": "At the closing hour of a small lending library, a librarian helps her adult son return a book he borrowed years ago. He says he is leaving town in the morning. She opens the old lending ledger and finds his childhood signature. Rather than collecting a late fee, she asks him to sign the return. The signature he writes now is unfamiliar to her. They wait together while the ink dries. Outside, someone tries the locked door. Neither mentions that he has kept the book deliberately.",
+        "source_revision": "authored-demo-v1",
+        "brief": {
+          "medium": "film screenplay",
+          "scope": "one connected short episode",
+          "allowed_changes": "Plot, actions, relationships, ending, background, props, scene organization and expression may change",
+          "fixed_requirements": "Produce a complete readable short screenplay"
+        }
+      },
+      "source_boundaries": {
+        "status": "verified",
+        "edition_verified": true,
+        "complete_unit": true,
+        "reviewer": "Authored demonstration source, not a novel benchmark",
+        "unit_description": "Complete original demonstration passage",
+        "source_sha256": "4942f6795f693c7e19fa414d1ce6078f8af2037d3f12b1f05e20d7cc89477718"
+      }
+    }
+  ]
+}

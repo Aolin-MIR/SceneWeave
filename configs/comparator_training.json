@@ -1,0 +1,14 @@
+{
+  "model": "StrandsAgents/strands-decider-2B-hobson-v19",
+  "revision": "bb282d786bc251fd4e3068de3ada9ddbb38127cd",
+  "backend": "decider",
+  "adaptation": "ordinary LoRA with the original pointer readout",
+  "synthetic_label_smoothing": 0.1,
+  "minimum_epochs": 4,
+  "early_stopping_patience_complete_epochs": 3,
+  "scheduler": "ReduceLROnPlateau",
+  "scheduler_patience": 1,
+  "gradient_accumulation_pairs": 8,
+  "memory_safety_mib": 3072,
+  "test_for_selection": false
+}
