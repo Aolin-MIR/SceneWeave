@@ -72,6 +72,7 @@ Compressed files preserve the original complete input/target bytes. [`data/catal
 | Other-entry requests | 366 source/brief requests from 122 TRAIN works | Sources for future generation; they have no generated targets and are not training records |
 | Real prose/reference scenes | Original TRAIN/DEV correspondence records | Reference-scene supervision with work and author provenance; correspondence alone is not a quality preference |
 | Current comparator data | 3,000 TRAIN pairs: 269 human and 2,731 synthetic; 83 DEV and 10 TEST | Request-conditioned preference training; human labels and synthetic labels remain distinguishable |
+| New writer candidate snapshot | 588 actual candidate records, including 17 published-target records | Pending complete-input, source protection, duplicate and final quality admission; qualified new TRAIN count remains zero |
 | Expert revisions and edit operations | Original prepared LAMP records | Modification supervision and observed-change analysis |
 | HANNA | 1,056 stories, 836/110/110 split | Six separate human-rating dimensions; no invented total dramaticity score |
 | Expert external material | 479 story records; 2,016 creative judgments | External judgment analysis; repeated judgments do not increase independent story counts |
@@ -80,6 +81,7 @@ Auxiliary data is preserved for its stated role and is not automatically admitte
 
 ```bash
 python tools/restore_data.py --verify-only
+python tools/inspect_writer_candidates.py
 python tools/restore_data.py --group writer
 python tools/restore_data.py --group preferences
 # Restore every prepared group if needed:
@@ -137,7 +139,7 @@ python tools/download_models.py --model writer
 python tools/download_models.py --model preference_comparator
 ```
 
-`local_writer_inference.py` and `local_adaptation_writer_interface.py` bind actual local checkpoints, complete inputs, and response identities. `train_local_writer.py` provides complete-target, assistant-only SFT with length and partition preflight. It requires an explicit release for training; this snapshot does not authorize a new writer run. `train_contextual_script_comparator.py` trains complete request/candidate comparisons with ordinary LoRA, source weights, synthetic-only smoothing, and full-epoch validation. Do not substitute story-rating dimensions for screenplay preferences or treat dataset counts as evidence of model quality.
+`local_writer_inference.py` and `local_adaptation_writer_interface.py` bind actual local checkpoints, complete inputs, and response identities. `train_local_writer.py` provides complete-target, assistant-only SFT with length and partition preflight. It requires an explicit release for training; this snapshot does not authorize a new writer run. `train_tie_script_comparator.py` additionally models A, B, and genuine ties, keeping reader disagreement separate from indifference. Its artifact validators require original provenance. `train_contextual_script_comparator.py` trains complete request/candidate comparisons with ordinary LoRA, source weights, synthetic-only smoothing, and full-epoch validation. Do not substitute story-rating dimensions for screenplay preferences or treat dataset counts as evidence of model quality.
 
 ## Method and baseline sources
 
@@ -149,3 +151,10 @@ python tools/download_models.py --model preference_comparator
 - [StrandsDecider](https://huggingface.co/StrandsAgents/strands-decider-2B-hobson-v19): original open decision backbone and readout implementation.
 
 See [`third_party/README.md`](third_party/README.md) for source and license boundaries. [`docs/source_export.json`](docs/source_export.json) records the original and exported hashes of the main modules and the limited path/template extraction changes needed for the standalone project.
+
+Optional CPU tests for the three-way comparator use the training environment and pytest:
+
+```bash
+pip install -r requirements-test.txt
+pytest -q tests/test_tie_script_comparator.py
+```

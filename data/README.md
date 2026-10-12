@@ -23,3 +23,9 @@ The prepared training release has 3,000 pairs, including 269 human comparisons a
 ## Source terms
 
 This is a private research snapshot of prepared data the project already holds. Source-specific attribution and access conditions remain in record provenance and the catalog. There is no blanket data redistribution license. Before making a public data release, review source permissions at the work and dataset level; where necessary release metadata and acquisition scripts instead of copyrighted prose or screenplay excerpts. No source text is relicensed by the software repository.
+
+## Additional writer snapshot
+
+`writer/candidates/snapshot_588/` preserves eight actual candidate files and their original immutable manifest. Its 588 records include published-target and synthetic records with their original provenance. Complete-token checks, cross-stage duplicates and current owner protection are still pending where stated by the manifest. Qualified new TRAIN remains zero; this snapshot does not authorize writer training.
+
+The 113-record increment is an overlapping delta view of the primary stage files. All archived files physically contain 701 rows, representing 588 primary candidates. `tools/inspect_writer_candidates.py` checks exact delta membership and prevents counting that view as new independent data.

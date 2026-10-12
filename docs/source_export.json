@@ -132,8 +132,34 @@
       "packaging_changes": [
         "Keep exact original templates, serialization and record helpers; omit unrelated source acquisition commands"
       ]
+    },
+    {
+      "upstream_project_path": "experiments/run_repaired_script_preference_training.py",
+      "original_sha256": "e86e962e7c459f48f8902313729db1513f1c4b80bb7c90f5d745a0896ff93ba2",
+      "export_path": "experiments/run_repaired_script_preference_training.py",
+      "export_sha256": "9d15184345af40ff457b10b7499ecdcd269f1c61ccdef0c239dfa24d20401c8c",
+      "packaging_changes": [
+        "Extract exact reusable validators and data I/O; omit active job management and annotation transports"
+      ]
+    },
+    {
+      "upstream_project_path": "experiments/assistant_script_tie_reviews.py",
+      "original_sha256": "d6273073954968503164f8ae6bb98a525da2552503e366d6e9f30ff555b3c4c3",
+      "export_path": "experiments/assistant_script_tie_reviews.py",
+      "export_sha256": "459b3cc4eee8fc2b7a322788f225788bd858fb50c06d47f32ca740bd4428aad1",
+      "packaging_changes": [
+        "Extract exact reusable validators and data I/O; omit active job management and annotation transports"
+      ]
+    },
+    {
+      "upstream_project_path": "experiments/train_tie_script_comparator.py",
+      "original_sha256": "bfee69bbbd8d3d2bd744399b98bc33fba58e9b4da152f95149a95befa4231280",
+      "export_path": "experiments/train_tie_script_comparator.py",
+      "export_sha256": "bfee69bbbd8d3d2bd744399b98bc33fba58e9b4da152f95149a95befa4231280",
+      "packaging_changes": []
     }
   ],
   "training_started": false,
-  "model_files_copied": false
+  "model_files_copied": false,
+  "updated_at_beijing": "2026-10-12T14:19:08.208594+08:00"
 }

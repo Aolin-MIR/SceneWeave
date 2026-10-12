@@ -22,6 +22,16 @@ class PortableReleaseTests(unittest.TestCase):
         self.assertGreater(result['verified_datasets'], 0)
         self.assertFalse(result['labels_or_partitions_changed'])
 
+    def test_new_candidate_delta_is_an_exact_overlapping_view(self):
+        spec = importlib.util.spec_from_file_location('candidate_fixture', ROOT / 'tools/inspect_writer_candidates.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        result = module.inspect()
+        self.assertEqual(result['primary_candidate_records'], 588)
+        self.assertEqual(result['overlapping_delta_view_records'], 113)
+        self.assertFalse(result['training_authorized'])
+        self.assertEqual(result['qualified_new_train_records'], 0)
+
     def test_model_substitution_is_rejected_before_a_transport_call(self):
         spec = importlib.util.spec_from_file_location('transport_fixture', ROOT / 'tools/experimental_inference.py')
         module = importlib.util.module_from_spec(spec)

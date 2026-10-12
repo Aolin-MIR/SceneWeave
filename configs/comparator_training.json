@@ -5,10 +5,11 @@
   "adaptation": "ordinary LoRA with the original pointer readout",
   "synthetic_label_smoothing": 0.1,
   "minimum_epochs": 4,
-  "early_stopping_patience_complete_epochs": 3,
+  "early_stopping_patience_complete_epochs": 5,
   "scheduler": "ReduceLROnPlateau",
   "scheduler_patience": 1,
   "gradient_accumulation_pairs": 8,
   "memory_safety_mib": 3072,
-  "test_for_selection": false
+  "test_for_selection": false,
+  "distinct_pairs_per_optimizer_update": 8
 }
