@@ -4,6 +4,8 @@ SceneWeave adapts prose into connected screenplays and stage scripts. Its centra
 
 Authors can begin with a scene, relationships, structure, or medium-specific expression. Source-conditioned entry selection is optional assistance. Plot, character actions, relationships, ending, background, props, arrangement, and expression can change within the creative brief. Fidelity, conflict intensity, ambiguity, and closure do not automatically determine quality.
 
+The public arXiv paper link will be added after the preprint is posted. [Models and experimental materials](https://doi.org/10.5281/zenodo.23329962) are available on Zenodo.
+
 ## Blind review
 
 [Open the bilingual blind-review website](https://107.174.142.168:8060/). The study presents eight anonymous pairs of complete scenes with preceding and following context. English originals and Chinese translations are provided; readers choose A, B, a tie, or unable to judge, and briefly explain their choice. Method identities remain hidden during review.
@@ -136,9 +138,9 @@ python tools/download_models.py --model preference_comparator
 
 ## Default preference evaluator weights
 
-The default comparator is the retained **V9 epoch2** checkpoint. Its inference weights will be publicly released on Zenodo at [DOI: 10.5281/zenodo.23329962](https://doi.org/10.5281/zenodo.23329962). This DOI is reserved for the release and will resolve when the complete deposit is published. The export contains all 378 trained adapter/head tensors, verified exactly equal to the original checkpoint, with optimizer and RNG state omitted. [`configs/evaluator_release.json`](configs/evaluator_release.json) records the original checkpoint SHA-256, export SHA-256, and pinned base-model revisions.
+The default comparator is the retained **V9 epoch2** checkpoint. Its inference weights are available in the published [Zenodo release](https://doi.org/10.5281/zenodo.23329962). The export contains all 378 trained adapter/head tensors, verified exactly equal to the original checkpoint, with optimizer and RNG state omitted. [`configs/evaluator_release.json`](configs/evaluator_release.json) records the original checkpoint SHA-256, export SHA-256, and pinned base-model revisions.
 
-To load the weights when available, install the training dependencies, download both model dependencies, and place `sceneweave_evaluator_v9_epoch2.pt` under `models/`:
+To load the weights, install the training dependencies, download both model dependencies, and place `sceneweave_evaluator_v9_epoch2.pt` under `models/`:
 
 ```bash
 python tools/download_models.py --model preference_comparator
@@ -164,4 +166,25 @@ Optional CPU tests for the three-way comparator use the training environment and
 ```bash
 pip install -r requirements-test.txt
 pytest -q tests/test_tie_script_comparator.py
+```
+
+## Citation
+
+For the paper, use the authors and title below. Add the arXiv identifier once the public record is available. Cite the released models and experimental materials separately with their Zenodo DOI.
+
+```bibtex
+@unpublished{li2026sceneweave,
+  author = {Li, Aolin and Xu, Xiao and Xie, Haihua},
+  title = {SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation},
+  year = {2026},
+  note = {Manuscript}
+}
+
+@misc{li2026sceneweave_artifacts,
+  author = {Li, Aolin and Xu, Xiao and Xie, Haihua},
+  title = {SceneWeave: Models and Experimental Materials for Dramatic Adaptation},
+  year = {2026},
+  doi = {10.5281/zenodo.23329962},
+  url = {https://doi.org/10.5281/zenodo.23329962}
+}
 ```
