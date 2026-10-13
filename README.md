@@ -8,23 +8,7 @@ Authors can begin with a scene, relationships, structure, or medium-specific exp
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    A[Source prose + creative brief] --> B[Author chooses an entry]
-    B --> S[Scene: alternative written realizations]
-    B --> R[Relationships: encounters + revisable interpretation]
-    B --> T[Structure: hierarchical arrangement + actual prefix]
-    B --> E[Expression: scenic treatment + medium material]
-    S --> P[Reconsider the adaptation program]
-    R --> P
-    T --> P
-    E --> P
-    P --> W[Complete writing and revision]
-    W --> C[Compare complete drafts]
-    H[Human preference supervision] --> J[Trained preference comparator]
-    J --> C
-    C --> F[Complete adaptation]
-```
+![SceneWeave framework](docs/framework.png)
 
 The controllers maintain actual written material, program versions, and explicit edit operations. Relationship interpretations and reading suggestions remain revisable. The shared writer supports named-scene writing, complete-script realization, and complete-script revision. Planning, program updates, and reading roles can use the authorized API; creative roles can also use an explicitly bound local writer. Complete-script selection retains ties and unavailable judgments.
 
