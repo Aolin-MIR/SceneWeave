@@ -22,5 +22,7 @@
   "absolute_script_scoring": false,
   "zenodo_deposition_id": 23329962,
   "zenodo_status": "draft_unpublished",
-  "public_download_url": null
+  "public_download_url": null,
+  "zenodo_reserved_doi": "10.5281/zenodo.23329962",
+  "planned_public_download_url": "https://doi.org/10.5281/zenodo.23329962"
 }

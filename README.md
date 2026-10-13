@@ -147,7 +147,7 @@ python tools/download_models.py --model preference_comparator
 
 ## Default preference evaluator weights
 
-The default comparator is the retained **V9 epoch2** checkpoint. Its inference export is being deposited as a Zenodo draft; the deposit has not been published, and a public download link will be added after publication. The export contains all 378 trained adapter/head tensors, verified exactly equal to the original checkpoint, with optimizer and RNG state omitted. [`configs/evaluator_release.json`](configs/evaluator_release.json) records the original checkpoint SHA-256, export SHA-256, and pinned base-model revisions.
+The default comparator is the retained **V9 epoch2** checkpoint. Its inference weights will be publicly released on Zenodo at [DOI: 10.5281/zenodo.23329962](https://doi.org/10.5281/zenodo.23329962). This DOI is reserved for the release and will resolve when the complete deposit is published. The export contains all 378 trained adapter/head tensors, verified exactly equal to the original checkpoint, with optimizer and RNG state omitted. [`configs/evaluator_release.json`](configs/evaluator_release.json) records the original checkpoint SHA-256, export SHA-256, and pinned base-model revisions.
 
 To load the weights when available, install the training dependencies, download both model dependencies, and place `sceneweave_evaluator_v9_epoch2.pt` under `models/`:
 
