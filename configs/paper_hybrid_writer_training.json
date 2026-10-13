@@ -1,0 +1,25 @@
+{
+  "human_preference_train": 116,
+  "human_preference_validation": 25,
+  "beta": 0.1,
+  "tie_parameter": 0.1,
+  "preference_learning_rate": 1e-06,
+  "pairs_per_update": 8,
+  "replay_examples": 128,
+  "replay_weight": 0.05,
+  "selected_preference_epoch": 12,
+  "scene_training_examples": [
+    23,
+    92
+  ],
+  "scene_training_learning_rates": [
+    1e-06,
+    3e-06
+  ],
+  "selected_scene_epochs": [
+    14,
+    3
+  ],
+  "final_stage_stop": "fixed three-complete-epoch limit",
+  "selection": "fixed validation token loss; no blind-review selection"
+}

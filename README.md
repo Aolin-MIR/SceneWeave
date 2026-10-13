@@ -1,6 +1,4 @@
-# SceneWeave
-
-**Audience-Guided Scene Exploration for Dramatic Adaptation**
+# SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation
 
 SceneWeave adapts prose into connected screenplays and stage scripts. Its central operation is to **write alternative realizations of a scene, then use those realizations to reconsider the whole adaptation**: character treatment, preceding preparation, subsequent development, and scene organization. A comparator learned from human and explicitly identified synthetic preferences supports selection among complete drafts.
 
@@ -24,10 +22,13 @@ The controllers maintain actual written material, program versions, and explicit
 | `tools/` | Checksum-based data restoration, explicit model download, and configurable Wiki transport |
 | `data/` | Prepared compressed data, fixed source partitions, auxiliary human supervision, and a checksum catalog |
 | `configs/` | Model identifiers, measured training environment, and an authored demonstration source |
+| `evaluation/dramabench/` | Complete-script content annotation, grading, and aggregation used in the paper |
 | `third_party/` | Pinned official baseline prompts and the original StrandsDecider implementation |
 | `tests/` | Offline contracts, controller behavior, preference symmetry, and portable-data checks |
 
 Model weights, adapters, optimizer state, credentials, run logs, and the manuscript are excluded. This is a **public research code and data snapshot**; included third-party texts retain their original terms. No blanket license for redistributing all data is inferred.
+
+The paper's final comparator and hybrid-writer training settings are recorded in [`configs/paper_comparator_training.json`](configs/paper_comparator_training.json) and [`configs/paper_hybrid_writer_training.json`](configs/paper_hybrid_writer_training.json). [`evaluation/dramabench/README.md`](evaluation/dramabench/README.md) describes the complete-script content evaluation, its required inputs, and the authorized gateway adapter.
 
 ## AI-assisted coding
 
