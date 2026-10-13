@@ -157,9 +157,19 @@
       "export_path": "experiments/train_tie_script_comparator.py",
       "export_sha256": "c8d9adc9aade77530d62c061b510d2852e4351968bb15e57fb990b9b3bee84f7",
       "packaging_changes": []
+    },
+    {
+      "upstream_project_path": "experiments/predict_contextual_script_preference.py",
+      "original_sha256": "0a04e0de70de75d5aa31889ee784c4fd84e75480af41a9822a025b5559598e1f",
+      "export_path": "experiments/predict_contextual_script_preference.py",
+      "export_sha256": "2f5f4c2b285f6b71332b13a9991717fe966bba54302af051ebd5044a839556e5",
+      "packaging_changes": [
+        "Resolve the exact released inference export from its checksum manifest",
+        "Resolve the released relative parent-model directory from the repository root"
+      ]
     }
   ],
   "training_started": false,
   "model_files_copied": false,
-  "updated_at_beijing": "2026-10-13T10:29:40.244645+08:00"
+  "updated_at_beijing": "2026-10-13T10:33:42.911751+08:00"
 }

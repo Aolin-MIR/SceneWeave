@@ -16,5 +16,10 @@
     "source": "wiki",
     "fallback": false
   },
-  "weights_distributed": false
+  "weights_distributed": false,
+  "preference_base": {
+    "repo_id": "Qwen/Qwen3.5-2B",
+    "revision": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "local_directory": "models/qwen3_5_2b_base"
+  }
 }

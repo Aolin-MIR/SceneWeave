@@ -145,6 +145,20 @@ python tools/download_models.py --model preference_comparator
 
 `local_writer_inference.py` and `local_adaptation_writer_interface.py` bind actual local checkpoints, complete inputs, and response identities. `train_local_writer.py` provides complete-target, assistant-only SFT with length and partition preflight. It requires an explicit release for training; this snapshot does not authorize a new writer run. `train_tie_script_comparator.py` additionally models A, B, and genuine ties, keeping reader disagreement separate from indifference. Its artifact validators require original provenance. `train_contextual_script_comparator.py` trains complete request/candidate comparisons with ordinary LoRA, source weights, synthetic-only smoothing, and full-epoch validation. Do not substitute story-rating dimensions for screenplay preferences or treat dataset counts as evidence of model quality.
 
+## Default preference evaluator weights
+
+The default comparator is the retained **V9 epoch2** checkpoint. Its inference export is being deposited as a Zenodo draft; the deposit has not been published, and a public download link will be added after publication. The export contains all 378 trained adapter/head tensors, verified exactly equal to the original checkpoint, with optimizer and RNG state omitted. [`configs/evaluator_release.json`](configs/evaluator_release.json) records the original checkpoint SHA-256, export SHA-256, and pinned base-model revisions.
+
+To load the weights when available, install the training dependencies, download both model dependencies, and place `sceneweave_evaluator_v9_epoch2.pt` under `models/`:
+
+```bash
+python tools/download_models.py --model preference_comparator
+python tools/download_models.py --model preference_base
+python experiments/predict_contextual_script_preference.py --pair pair.json
+```
+
+`pair.json` supplies `prompt`, `a`, and `b` as complete strings. Prediction preserves the native AB/BA semantic averaging and A/B/tie classes. Tie handling remains unvalidated; outputs express relative request-conditioned preference, without an absolute script-quality score.
+
 ## Method and baseline sources
 
 - [SuperWriter, Findings of ACL 2026](https://aclanthology.org/2026.findings-acl.428/): official planning, writing, and refinement prompts, pinned to commit `436149d87908a462b5f74270cb43d797163f6e17`. The pure-function loader does not execute upstream network code. Prompt-workflow reuse and the official post-trained model are distinct configurations.

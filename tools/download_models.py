@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--model', choices=('writer', 'preference_comparator'), required=True)
+    p.add_argument('--model', choices=('writer', 'preference_comparator', 'preference_base'), required=True)
     p.add_argument('--revision', help='Required explicit revision when absent from the registry')
     args = p.parse_args()
     spec = json.loads((ROOT / 'configs/models.json').read_text())[args.model]

@@ -1,0 +1,26 @@
+{
+  "version": "V9-epoch2",
+  "source_checkpoint_sha256": "f331043ec9c07e307897320c4442cf84f4f2968a0c9e62d372ccc482be77ed48",
+  "export_sha256": "8bdf04d64f323fe630f4cca987b972de03312d9b6fb30dad44a44bc7aef85881",
+  "export_filename": "sceneweave_evaluator_v9_epoch2.pt",
+  "tensor_count": 378,
+  "all_tensors_exactly_equal": true,
+  "tensor_values_or_dtype_changed": false,
+  "optimizer_and_rng_included": false,
+  "checkpoint_bytes": 71657291,
+  "classes": [
+    "A",
+    "B",
+    "tie"
+  ],
+  "inference": "softmax((logits_AB + logits_BA[A/B swapped, tie unchanged])/2); argmax",
+  "parent_model": "StrandsAgents/strands-decider-2B-hobson-v19",
+  "parent_revision": "bb282d786bc251fd4e3068de3ada9ddbb38127cd",
+  "base_model": "Qwen/Qwen3.5-2B",
+  "base_revision": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+  "tie_handling_validated": false,
+  "absolute_script_scoring": false,
+  "zenodo_deposition_id": 23329962,
+  "zenodo_status": "draft_unpublished",
+  "public_download_url": null
+}
