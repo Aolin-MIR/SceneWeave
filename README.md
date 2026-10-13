@@ -32,10 +32,6 @@ Model weights, adapters, optimizer state, credentials, run logs, and the manuscr
 
 The paper's final comparator and hybrid-writer training settings are recorded in [`configs/paper_comparator_training.json`](configs/paper_comparator_training.json) and [`configs/paper_hybrid_writer_training.json`](configs/paper_hybrid_writer_training.json). [`evaluation/dramabench/README.md`](evaluation/dramabench/README.md) describes the complete-script content evaluation, its required inputs, and the authorized gateway adapter.
 
-## AI-assisted coding
-
-Generative AI tools assisted code implementation. The authors are responsible for the correctness of the code.
-
 ## Installation
 
 CPU controller tests need Python 3.10 or newer. Python 3.12 is recommended when using the local training stack.
