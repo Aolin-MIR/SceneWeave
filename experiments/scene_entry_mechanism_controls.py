@@ -255,6 +255,10 @@ def _honest_plan_labels(value):
         return [_honest_plan_labels(row) for row in value]
     if not isinstance(value, dict):
         return deepcopy(value)
+    if value.get("representation") == "common_initial_complete_script":
+        # The actual shared initial draft stays an exact field reference.
+        # Its empty component registry does not describe prospective plans.
+        return deepcopy(value)
     result = {aliases.get(key, key): _honest_plan_labels(row) for key, row in value.items()}
     if result.get("representation") == "detailed_scene_plan":
         for row in result.get("ordered_scenes", result.get("planned_scene_components", [])):

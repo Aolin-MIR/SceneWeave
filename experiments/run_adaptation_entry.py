@@ -400,12 +400,21 @@ def check_material_pair(materials, source, program):
 
 def validate_development_assessment(value, unit):
     """Permit an explicitly requested DEV reading without certifying human taste."""
-    if (not isinstance(value, dict) or value.get("mode") != "codex_development_reading"
+    if (not isinstance(value, dict) or value.get("mode") not in
+            {"codex_development_reading", "author_requested_model_comparison"}
             or not isinstance(value.get("authorization"), str) or not value["authorization"].strip()
             or value.get("source_sha256") != fingerprint(unit["source"])
             or any(value.get(key) is not False for key in
                    ("judgments_are_human", "training_label_release", "paper_result_release", "test_accessed"))):
         raise ValueError("Development reading requires its explicit limited assessment contract")
+    if value["mode"] == "author_requested_model_comparison":
+        checkpoint = Path(value.get("checkpoint", ""))
+        digest = value.get("checkpoint_sha256")
+        if (not checkpoint.is_file() or not digest
+                or matched.sha256_bytes(checkpoint.read_bytes()) != digest
+                or value.get("evaluator_id") != "local_script_comparator_sha256:" + digest
+                or value.get("evaluator_qualification_established") is not False):
+            raise ValueError("Development model comparisons require their actual unqualified checkpoint binding")
     return deepcopy(value)
 
 

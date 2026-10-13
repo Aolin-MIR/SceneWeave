@@ -39,7 +39,11 @@ The controllers maintain actual written material, program versions, and explicit
 | `third_party/` | Pinned official baseline prompts and the original StrandsDecider implementation |
 | `tests/` | Offline contracts, controller behavior, preference symmetry, and portable-data checks |
 
-Model weights, adapters, optimizer state, credentials, run logs, and the manuscript are excluded. This is a **private research snapshot**; included third-party texts retain their original terms. No blanket license for redistributing all data is inferred.
+Model weights, adapters, optimizer state, credentials, run logs, and the manuscript are excluded. This is a **public research code and data snapshot**; included third-party texts retain their original terms. No blanket license for redistributing all data is inferred.
+
+## AI-assisted coding
+
+Generative AI tools assisted code implementation. The authors are responsible for the correctness of the code.
 
 ## Installation
 
@@ -77,7 +81,7 @@ Compressed files preserve the original complete input/target bytes. [`data/catal
 | HANNA | 1,056 stories, 836/110/110 split | Six separate human-rating dimensions; no invented total dramaticity score |
 | Expert external material | 479 story records; 2,016 creative judgments | External judgment analysis; repeated judgments do not increase independent story counts |
 
-Auxiliary data is preserved for its stated role and is not automatically admitted to the current training sets. The clean writer base is marked **not ready for a new training release**, and writer training remains paused. Packing or restoring files does not change these states.
+Auxiliary data is preserved for its stated role and is not automatically admitted to the current training sets. The clean writer base is marked **not ready for a new training release**, in this archived data snapshot. Later writer stages require their own admitted release; packing or restoring these files does not admit them.
 
 ```bash
 python tools/restore_data.py --verify-only

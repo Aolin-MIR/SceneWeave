@@ -41,8 +41,8 @@ def genuine_tie(row):
 
 def target_distribution(row, epsilon=0.):
     """Keep human annotations intact; soften only synthetic fitting targets."""
-    if not math.isfinite(epsilon) or not 0 <= epsilon < .5:
-        raise ValueError('Smoothing must be finite and in [0, .5)')
+    if not math.isfinite(epsilon) or not 0 <= epsilon <= .5:
+        raise ValueError('Smoothing must be finite and in [0, .5]')
     q = float(row['preference_probability'])
     if not math.isfinite(q) or not 0 <= q <= 1:
         raise ValueError('Invalid preference probability')
@@ -406,7 +406,21 @@ def main():
     parser.add_argument('--disable-gradient-checkpointing', action='store_true')
     parser.add_argument('--length-adaptive-microbatch', action='store_true')
     parser.add_argument('--continue-from-run', type=Path)
+    parser.add_argument('--branch-checkpoint', type=Path)
+    parser.add_argument('--branch-learning-rate', type=float)
+    parser.add_argument('--one-full-epoch', action='store_true')
+    parser.add_argument('--synthetic-label-smoothing', type=float, default=.1)
+    parser.add_argument('--physical-microbatch-pairs', type=int, default=1)
     args = parser.parse_args()
+    if not 0 <= args.synthetic_label_smoothing <= .5 or args.physical_microbatch_pairs not in (1, 2, 4, 8):
+        raise ValueError('Invalid synthetic smoothing or physical batch size')
+    if args.branch_checkpoint:
+        if not args.one_full_epoch or not args.branch_learning_rate or args.branch_learning_rate <= 0:
+            raise ValueError('A branch requires its positive learning rate and one complete epoch')
+        if args.resume or args.continue_from_run or args.initial_checkpoint:
+            raise ValueError('An independent branch must use only its declared parent checkpoint')
+    elif args.one_full_epoch or args.branch_learning_rate is not None:
+        raise ValueError('Finite one-epoch development requires an explicit branch parent')
     if args.early_stopping_patience < 1 or args.maximum_padded_tokens < 1:
         raise ValueError('Invalid stopping or complete-input batching allowance')
     if args.continue_from_run and args.resume:
@@ -434,7 +448,8 @@ def main():
     if set(r['work_id'] for r in data['train']) & set(r['work_id'] for r in data['dev']):
         raise ValueError('TRAIN/DEV group overlap')
     # Freeze validated targets once; do not reread immutable reader files per step.
-    train_targets = {row['pair_id']: target_distribution(row, .1) for row in data['train']}
+    epsilon = args.synthetic_label_smoothing
+    train_targets = {row['pair_id']: target_distribution(row, epsilon) for row in data['train']}
     dev_targets = {row['pair_id']: target_distribution(row) for row in data['dev']}
     genuine = {row['pair_id']: genuine_tie(row) for row in data['train'] + data['dev']}
     # Bind optimized operators before Transformers resolves its fallback decorator.
@@ -458,8 +473,9 @@ def main():
         'option_order': 'TRAIN-only fixed seeded random permutation independent of labels; '
                         'canonical semantic pointer indices and canonical DEV/inference options',
         'inference': 'softmax((logits_AB + logits_BA[A/B swapped, tie unchanged])/2); argmax',
-        'synthetic_label_smoothing': .1, 'synthetic_tie_target': [.05,.05,.9],
-        'synthetic_decisive_target': '[.8*q+.1,.8*(1-q)+.1,0]',
+        'synthetic_label_smoothing': epsilon, 'synthetic_tie_target': [epsilon/2,epsilon/2,1-epsilon],
+        'synthetic_decisive_target': '[.8*q+.1,.8*(1-q)+.1,0]' if epsilon == .1 else
+                                    f'[{1-2*epsilon}*q+{epsilon},{1-2*epsilon}*(1-q)+{epsilon},0]',
         'human_target_policy': 'Explicit indifference -> tie; individual split votes retain A/B distribution',
         'train_pairs': len(encoded['train']), 'dev_pairs': len(encoded['dev']),
         'selection_dev_ids': sorted(selection_ids), 'max_tokens': args.max_tokens, 'truncation': False,
@@ -471,9 +487,10 @@ def main():
         'warm_start_policy':'Load selected prior adapters only; reset optimizer, scheduler and RNG for changed-data stage' if args.initial_checkpoint else None,
         'primary_selection': 'Minimum completed-epoch real DEV three-class soft cross entropy',
         'synthetic_total_weight': 'Equal to total human TRAIN weight',
-        'lr': 1e-5, 'minimum_epochs': 4, 'patience_full_epochs': args.early_stopping_patience, 'maximum_epochs': 200,
+        'lr': args.branch_learning_rate if args.branch_checkpoint else 1e-5, 'minimum_epochs': 4,
+        'patience_full_epochs': args.early_stopping_patience, 'maximum_epochs': 200,
         'scheduler': 'ReduceLROnPlateau patience1 factor.5 minimum1e-7',
-        'gradient_accumulation_pairs': 8, 'physical_microbatch_pairs': 1,
+        'gradient_accumulation_pairs': 8, 'physical_microbatch_pairs': args.physical_microbatch_pairs,
         'auto_microbatch': args.auto_microbatch, 'maximum_padded_tokens_per_microbatch': args.maximum_padded_tokens,
         'gradient_checkpointing': not args.disable_gradient_checkpointing,
         'length_adaptive_microbatch': args.length_adaptive_microbatch,
@@ -513,6 +530,27 @@ def main():
             if field in saved_protocol:
                 protocol[field] = saved_protocol[field]
     continuation = None
+    branch_parent_loss = None
+    if args.branch_checkpoint:
+        continuation = torch.load(args.branch_checkpoint, map_location='cpu', weights_only=False)
+        previous_protocol = continuation['protocol']
+        protected = ('data_sha256', 'parent_revision', 'architecture', 'objective', 'inference',
+                     'train_pairs', 'dev_pairs', 'selection_dev_ids', 'additional_human_dev_sha256',
+                     'protected_test_sha256', 'human_target_policy', 'synthetic_total_weight',
+                     'gradient_accumulation_pairs', 'max_tokens', 'truncation')
+        current = json.loads(json.dumps(protocol)); previous = json.loads(json.dumps(previous_protocol))
+        if any(current[key] != previous[key] for key in protected):
+            raise ValueError('Independent branch changes protected data, model or evaluation settings')
+        if continuation['epoch'] != 2 or any(r['train_pairs_covered'] != len(encoded['train']) for r in continuation['history']):
+            raise ValueError('Independent branch requires the declared complete epoch2 checkpoint')
+        branch_parent_loss = continuation['best_dev']
+        protocol['author_one_epoch_branch'] = {'author_approved': True, 'parent_checkpoint': str(args.branch_checkpoint.resolve()),
+            'parent_checkpoint_sha256': file_digest(args.branch_checkpoint), 'parent_epoch': 2,
+            'learning_rate': args.branch_learning_rate, 'synthetic_label_smoothing': epsilon,
+            'additional_complete_train_epochs': 1, 'baseline_dev_loss': branch_parent_loss,
+            'optimizer_moments_and_rng_restored': True, 'scheduler_learning_rate_amended': True,
+            'convergence_claimed': False}
+        protocol['warm_start_policy'] = 'Independent one-full-epoch branch from epoch2 with preserved moments and RNG; declared learning rate and smoothing'
     if args.continue_from_run:
         previous_protocol = json.loads((args.continue_from_run/'protocol.json').read_text())
         continuation = torch.load(args.continue_from_run/'latest.pt', map_location='cpu', weights_only=False)
@@ -537,7 +575,7 @@ def main():
         if set(target_parameters)!=set(initial['adapter']):raise ValueError('Warm-start trainable parameters differ')
         with torch.no_grad():
             for name,p in target_parameters.items():p.copy_(initial['adapter'][name].to(p.device))
-    optimizer = torch.optim.AdamW(parameters, lr=1e-5)
+    optimizer = torch.optim.AdamW(parameters, lr=protocol['lr'])
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=1, factor=.5, min_lr=1e-7)
     if args.auto_microbatch and not args.resume:
         if args.length_adaptive_microbatch:
@@ -571,6 +609,13 @@ def main():
         save(out/'batching_speed_benchmark.json', benchmark)
         save(out/'protocol.json', protocol)
         print(json.dumps({'status': 'training_speed_measured', 'speedup': benchmark['measured_speedup']}), flush=True)
+    elif args.branch_checkpoint and args.physical_microbatch_pairs > 1:
+        args.profile_counts = (args.physical_microbatch_pairs,)
+        count, trials = profile_three_way_batches(model, encoded, tokenizer, parameters, train_targets,
+                                                  args, free * 2**20)
+        del args.profile_counts
+        save(out/'batching_preflight.json', {'selected_pairs': count, 'trials': trials,
+             'optimizer_updates': 0, 'eight_pairs_per_update_unchanged': True, 'test_scored': False})
     def logits(inputs):
         return model.decision(**{k:v.cuda() for k,v in inputs.items()},temperature=1.)['logits'][0].float()
     def evaluate():
@@ -621,15 +666,20 @@ def main():
         restore_training_state(model, optimizer, continuation, protocol['data_sha256'], continuation['protocol'])
         scheduler.load_state_dict(continuation['scheduler'])
         best,bad,history,best_epoch,start = continuation['best_dev'],continuation['patience_elapsed'],continuation['history'],continuation['best_epoch'],continuation['epoch']+1
-        shutil.copy2(args.continue_from_run/'best.pt', out/'best.pt')
-        shutil.copy2(args.continue_from_run/'before_training_dev_report.json', out/'before_training_dev_report.json')
+        previous_run = args.branch_checkpoint.parent if args.branch_checkpoint else args.continue_from_run
+        shutil.copy2(args.branch_checkpoint if args.branch_checkpoint else previous_run/'best.pt', out/'best.pt')
+        shutil.copy2(previous_run/'before_training_dev_report.json', out/'before_training_dev_report.json')
         save(out/'history.json', history)
-        save(out/'continuation_record.json', {**protocol['author_batching_amendment'],
+        if args.branch_checkpoint:
+            for group in optimizer.param_groups:
+                group['lr'] = args.branch_learning_rate
+            scheduler._last_lr = [args.branch_learning_rate for _ in optimizer.param_groups]
+        save(out/'continuation_record.json', {**protocol.get('author_one_epoch_branch', protocol.get('author_batching_amendment', {})),
              'restored_complete_epochs': continuation['epoch'], 'next_epoch': start,
              'optimizer_scheduler_rng_restored': True, 'test_scored': False})
         del continuation
     train_lengths = [max(v['input_ids'].shape[1] for v in pair) for _, pair in encoded['train']]
-    for epoch in range(start,201):
+    for epoch in range(start, start + 1 if args.one_full_epoch else 201):
         epoch_started = time.perf_counter()
         model.train(); order=list(range(len(encoded['train']))); random.shuffle(order)
         train_loss=0.; updates=0
@@ -693,6 +743,13 @@ def main():
         save(out/'history.json',history)
         print(json.dumps({k:v for k,v in record.items() if k!='predictions'}),flush=True)
         if bad>=args.early_stopping_patience and epoch>=4:break
+    if args.branch_checkpoint:
+        last = history[-1]
+        save(out/'one_epoch_branch_result.json', {**protocol['author_one_epoch_branch'],
+            'trained_additional_full_epochs': 1, 'train_pairs_covered': last['train_pairs_covered'],
+            'candidate_dev_loss': last['dev_three_class_ce'], 'candidate_metrics': last['metrics'],
+            'improved_over_epoch2': last['dev_three_class_ce'] < branch_parent_loss - 1e-5,
+            'candidate_checkpoint': str((out/'latest.pt').resolve()), 'test_scored': False})
     selected=next(r for r in history if r['epoch']==best_epoch)
     original_rows=[r for r in selected['predictions'] if r['pair_id'] in original_selection_ids]
     new_rows=[r for r in selected['predictions'] if r['pair_id'] in {x['pair_id'] for x in added_dev}]
@@ -723,7 +780,9 @@ def main():
         'test_scored':False})
     save(out/'completion.json',{'completed_full_epochs':epoch,'selected_best_epoch':best_epoch,
         'total_optimizer_updates':sum(r['optimizer_updates'] for r in history),'best_dev_loss':best,
-        'stop_reason':'full_epoch_dev_plateau' if bad>=args.early_stopping_patience and epoch>=4 else 'epoch_budget',
+        'stop_reason':'author_one_full_epoch_branch' if args.one_full_epoch else
+                      'full_epoch_dev_plateau' if bad>=args.early_stopping_patience and epoch>=4 else 'epoch_budget',
+        'additional_full_epochs_in_this_branch': 1 if args.one_full_epoch else None,
         'patience_full_epochs': args.early_stopping_patience,
         'optimization_convergence_claimed':False,'test_scored':False})
     threshold_path = args.data.parent/'threshold_comparison.json'

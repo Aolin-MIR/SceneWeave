@@ -168,8 +168,11 @@ def validate_backend(backend):
         raise ValueError("A local checkpoint cannot declare a remote source")
 
 
-def parse_stage_response(value):
-    """Reject overwritten JSON fields; do not repair artistic content or retry."""
+TERMINAL_CLOSURE_RULE = "eos-json-terminal-delimiters-v1"
+
+
+def parse_stage_response(value, *, allow_terminal_closure=False, return_receipt=False):
+    """Restore only missing terminal delimiters after EOS, preserving all values."""
     def unique(fields):
         result = {}
         for key, item in fields:
@@ -177,11 +180,65 @@ def parse_stage_response(value):
                 raise ValueError("Duplicate structured stage field: " + key)
             result[key] = item
         return result
+    if not isinstance(value, str):
+        raise TypeError("The original stage output must be text")
+    raw_sha = sha256_bytes(value.encode())
     value = re.sub(r"^```(?:json)?\s*|\s*```$", "", value.strip())
-    result = json.loads(value, object_pairs_hook=unique)
+    added = ""
+    def strict(text):
+        def invalid_constant(name):
+            raise ValueError("Non-finite JSON constant: " + name)
+        return json.loads(text, object_pairs_hook=unique, parse_constant=invalid_constant)
+    try:
+        result = strict(value)
+    except json.JSONDecodeError:
+        if not allow_terminal_closure:
+            raise
+        stack, quoted, escaped = [], False, False
+        for character in value:
+            if quoted:
+                if escaped:
+                    escaped = False
+                elif character == "\\":
+                    escaped = True
+                elif character == '"':
+                    quoted = False
+            elif character == '"':
+                quoted = True
+            elif character in "{[":
+                stack.append(character)
+            elif character in "}]":
+                expected = "{" if character == "}" else "["
+                if not stack or stack.pop() != expected:
+                    raise ValueError("Mismatched JSON delimiters cannot be restored")
+        if quoted or escaped or not stack:
+            raise ValueError("Only missing terminal container delimiters may be restored")
+        added = "".join("}" if item == "{" else "]" for item in reversed(stack))
+        result = strict(value + added)
     if not isinstance(result, dict):
         raise ValueError("A writing stage must return a JSON object")
-    return result
+    receipt = {"rule_version": TERMINAL_CLOSURE_RULE, "original_raw_sha256": raw_sha,
+               "appended_delimiters": added, "recovery_applied": bool(added),
+               "parsed_text_sha256": sha256_bytes((value + added).encode()),
+               "EOS_required_for_recovery": True, "key_value_or_body_changed": False}
+    return (result, receipt) if return_receipt else result
+
+
+def validate_creative_stage_schema(stage, value, payload):
+    """Apply the existing complete creative task shape before accepting a response."""
+    if isinstance(payload.get("request_json"), str):
+        payload = json.loads(payload["request_json"])
+    if stage == "plan" and payload.get("requested_representation") == "detailed_scene_plan":
+        from scene_entry_mechanism_controls import _plan_output
+        _plan_output(value, payload["scene_id"])
+    elif stage == "trial":
+        identifier = payload.get("scene_id", payload.get("exploration", {}).get("scene_id"))
+        if (not isinstance(identifier, str) or value.get("scene_id") != identifier
+                or not isinstance(value.get("text"), str) or not value["text"].strip()):
+            raise ValueError("Missing assigned complete-scene identifier or text")
+    elif stage in {"realize", "revise_script"}:
+        if not isinstance(value.get("script"), str) or not value["script"].strip():
+            raise ValueError("Missing complete-script field")
 
 
 def local_writer_messages(stage, system, payload, *, serialization="legacy"):
@@ -224,11 +281,15 @@ class LocalWriterGenerator:
         response = self.infer(local_writer_messages(stage, system, payload, serialization=self.serialization), deepcopy(backend))
         result = {k: deepcopy(response.get(k)) for k in
                   ("served_revision", "served_model", "source_requested", "finish_reason", "usage", "raw_path")}
+        result["raw_text"] = deepcopy(response.get("text"))
         if (response.get("served_revision") != backend["revision"] or response.get("source_requested") != "local"
                 or response.get("finish_reason") != "stop"):
             return {**result, "status": "failed", "error_type": "LocalIdentityOrTerminationFailure"}
         try:
-            result.update(result=parse_stage_response(response["text"]), status="complete")
+            parsed, parsing = parse_stage_response(response["text"], allow_terminal_closure=True, return_receipt=True)
+            result["parsing"] = parsing
+            validate_creative_stage_schema(stage, parsed, payload)
+            result.update(result=parsed, parsing=parsing, raw_text=response["text"], status="complete")
         except (ValueError, KeyError, TypeError) as exc:
             result.update(status="failed", error_type=type(exc).__name__)
         return result
@@ -637,7 +698,10 @@ class WikiGenerator:
                             usage=raw.get("usage"), finish_reason=raw.get("finish_reason"), raw_path=str(raw_path))
             if raw.get("finish_reason") != "stop":
                 raise ValueError("Preserved non-stop response")
-            response.update(result=parse_stage_response(raw["text"]), status="complete")
+            parsed, parsing = parse_stage_response(raw["text"], allow_terminal_closure=True, return_receipt=True)
+            response["parsing"] = parsing
+            validate_creative_stage_schema(stage, parsed, payload)
+            response.update(result=parsed, parsing=parsing, status="complete")
         except Exception as exc:
             if raw_path.exists():
                 raw = json.loads(raw_path.read_text())

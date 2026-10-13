@@ -11,7 +11,7 @@ from adaptation_system_contract import EDIT_AXES, fingerprint, validate_program
 VERSION = "native-entry-algorithms-v1"
 COMPLETE_SCENE_VERSION = "native-scene-complete-v2"
 COMPLETE_ENTRY_VERSION = "native-entries-complete-v3"
-MATERIAL_ENTRY_VERSION = "native-entries-material-development-v12.3.1"
+MATERIAL_ENTRY_VERSION = "native-entries-material-development-v12.3.2"
 # Request contracts keep their actual identity independently of method releases.
 MATERIAL_WIRE_VERSION = "native-entries-material-development-v12"
 COMPLETE_READER_VIEW_VERSION = "native-entries-material-development-v12.1"
@@ -53,6 +53,25 @@ def text(value, key):
     if not isinstance(result, str) or not result.strip():
         raise ValueError("Missing nonempty text: " + key)
     return result
+
+
+def relationship_actor_names(people, collectives):
+    """Validate named people and explicitly declared collective participants."""
+    if not isinstance(collectives, list):
+        raise ValueError("Collective participants must be a list")
+    names = set(people)
+    for collective in collectives:
+        if not isinstance(collective, dict):
+            raise ValueError("Invalid collective participant")
+        name = text(collective, "name")
+        members = collective.get("members")
+        if name in names or not isinstance(members, list) or len(members) != len(set(members)):
+            raise ValueError("Duplicate collective or invalid member list")
+        if any(member not in people for member in members):
+            raise ValueError("Collective member is not a declared person")
+        text(collective, "uncertainty")
+        names.add(name)
+    return names
 
 
 def intent_edit_value(operation):
@@ -444,14 +463,19 @@ MATERIAL_SCENE_SEED = SCENE_SEED.replace(
 RELATION_SEED = (
     "Read the actual source, brief and initial complete draft. Use the supplied "
     "published Character Evaluator as a task-adapted starting point. Return JSON "
-    "{program:" + PROGRAM + ",people:[string],relationships:[{relation_id:string,"
+    "{program:" + PROGRAM + ",people:[string],collectives:[{name:string,members:[string],uncertainty:string}],relationships:[{relation_id:string,"
     "from_person:string,to_person:string,interpretation:string,uncertainty:string}],"
     "encounter_chains:[{approach:string,encounters:[{encounter_id:string,scene_id:string,"
     "situation:string}]}]}. Propose exactly two different chains, each with at "
     "least two linked encounters. People may interpret a relation differently. "
     "Keep ambiguity and contradictory expectations; no fixed personality, "
     "numerical affection, growth, or obligatory relationship change. These are "
-    "proposed adapted relationships, not unique inferred source psychology."
+    "proposed adapted relationships, not unique inferred source psychology. "
+    "Every relationship endpoint must name a declared person or collective. "
+    "A collective preserves a group-level interaction; do not split it into "
+    "individual relationships by default. List only supported members using "
+    "declared person names; leave unknown membership unresolved in uncertainty. "
+    "Use an empty collectives list when no collective participates."
 )
 RELATION_WRITE = (
     "Write the next actual screenplay encounter using the current relationship "
@@ -1902,10 +1926,11 @@ def execute_entry(entry, available, call, prompts, *, complete_flow=False, mater
                 or not isinstance(state, list) or not state
                 or not isinstance(chains, list) or len(chains) != 2):
             raise ValueError("Relationship entry requires people, directed records and two chains")
+        actors = relationship_actor_names(people, proposal.get("collectives", []))
         relation_ids = set()
         for relation in state:
             identifier = text(relation, "relation_id")
-            if identifier in relation_ids or relation.get("from_person") not in people or relation.get("to_person") not in people:
+            if identifier in relation_ids or relation.get("from_person") not in actors or relation.get("to_person") not in actors:
                 raise ValueError("Invalid directed relationship")
             relation_ids.add(identifier)
             text(relation, "interpretation")
@@ -1931,6 +1956,8 @@ def execute_entry(entry, available, call, prompts, *, complete_flow=False, mater
                 payload = {**available, "program": program, "encounter": encounter,
                            "current_relationships": before, "previous_actual_encounters": written,
                            "chain_approach": chain["approach"]}
+                if proposal.get("collectives"):
+                    payload["collectives"] = deepcopy(proposal["collectives"])
                 if complete_flow:
                     payload.update(scene_id=encounter["scene_id"], exploration={
                         "scene_id": encounter["scene_id"], "approach": chain["approach"] + ": " + encounter["situation"]},

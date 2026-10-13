@@ -12,6 +12,16 @@ import run_scene_first_matched as matched
 
 
 VERSION = "local-creative-stage-projection-v4"
+EXPLORATION_PRIORITY_VERSION = "scene-exploration-scope-priority-v1"
+EXPLORATION_SCOPE_INSTRUCTION = (
+    "Exploration scope priority: satisfy the supplied source boundaries and the author's explicit brief first. "
+    "For this assigned trial or detailed scene plan, follow the executed/current treatment of the named scene "
+    "and the supplied exploration approach. The initial plan and initial script are previous provisional material. "
+    "Whole-program choices that have not yet been updated after this scene edit are provisional surrounding "
+    "context; they must not override the current named-scene treatment. A later updater will reconsider the "
+    "related character treatment, earlier preparation, subsequent development and whole scene organization. "
+    "Do not silently restore an incompatible earlier ending or interaction from that context. "
+    "This priority gives neither retention nor change an artistic advantage.")
 SERIALIZATION_MODES = ("legacy", "compact_json")
 COMPACT_SERIALIZATION_VERSION = "local-request-compact-json-v1"
 STAGES = ("trial", "realize", "revise_script")
@@ -284,6 +294,20 @@ def bind_entry_hybrid(entry, infer, local_backend, *, serialization="legacy"):
                    for phase in phases}
     callbacks = {phase: adapter for phase in creative}
     return assignments, callbacks
+
+
+def scene_exploration_scope(stage, system, payload):
+    """State one common scene/current-versus-provisional priority for both representations."""
+    if stage not in {"trial", "plan"}:
+        return system
+    exploration = payload.get("exploration", {})
+    identifier = payload.get("scene_id", exploration.get("scene_id") if isinstance(exploration, dict) else None)
+    if (not isinstance(identifier, str) or not isinstance(exploration, dict)
+            or exploration.get("scene_id") != identifier):
+        raise ValueError("Scene exploration priority requires one actual assigned scene and approach")
+    if EXPLORATION_SCOPE_INSTRUCTION not in system:
+        system += "\n" + EXPLORATION_SCOPE_INSTRUCTION
+    return system
 
 
 def project_request(stage, system, payload):

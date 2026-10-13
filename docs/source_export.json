@@ -4,9 +4,9 @@
   "files": [
     {
       "upstream_project_path": "experiments/adaptation_entry_algorithms.py",
-      "original_sha256": "0f18e1b58c862570fb7aa6831ebc8e8bab9d2c4705b0725f963cd10afefef2aa",
+      "original_sha256": "309068c00b67d7f1efc543cdd042ffaa6d6179ccdceec1f6263ed143ec0471e7",
       "export_path": "experiments/adaptation_entry_algorithms.py",
-      "export_sha256": "0f18e1b58c862570fb7aa6831ebc8e8bab9d2c4705b0725f963cd10afefef2aa",
+      "export_sha256": "309068c00b67d7f1efc543cdd042ffaa6d6179ccdceec1f6263ed143ec0471e7",
       "packaging_changes": []
     },
     {
@@ -32,9 +32,9 @@
     },
     {
       "upstream_project_path": "experiments/scene_entry_mechanism_controls.py",
-      "original_sha256": "452eecab0b50deb4aa3d1d4150dae6c384e481938969ab8c21efe0108644949e",
+      "original_sha256": "8fd4ebcdf1a30316a8005c57649cd128ecf804b23115c06c5696b41544d32a59",
       "export_path": "experiments/scene_entry_mechanism_controls.py",
-      "export_sha256": "452eecab0b50deb4aa3d1d4150dae6c384e481938969ab8c21efe0108644949e",
+      "export_sha256": "8fd4ebcdf1a30316a8005c57649cd128ecf804b23115c06c5696b41544d32a59",
       "packaging_changes": []
     },
     {
@@ -46,25 +46,25 @@
     },
     {
       "upstream_project_path": "experiments/local_adaptation_writer_interface.py",
-      "original_sha256": "d57029cf801de814367ac229b81176a853ec6f655d1519c4e985988b539f4ffc",
+      "original_sha256": "4264ec4fb6abd07f4c95d773c32e3e6a922464b03a850228156998ab1dea62b6",
       "export_path": "experiments/local_adaptation_writer_interface.py",
-      "export_sha256": "d57029cf801de814367ac229b81176a853ec6f655d1519c4e985988b539f4ffc",
+      "export_sha256": "4264ec4fb6abd07f4c95d773c32e3e6a922464b03a850228156998ab1dea62b6",
       "packaging_changes": []
     },
     {
       "upstream_project_path": "experiments/run_adaptation_entry.py",
-      "original_sha256": "9c324ab4c2b9ad80e49ba5ac9284aaafe6b4aa0801b9e3e539df7a9730f259bf",
+      "original_sha256": "0e159acfb3811c32e92d1389c6416f3d35feb4a37abe882936190af379ad09f9",
       "export_path": "experiments/run_adaptation_entry.py",
-      "export_sha256": "4c0c196a887f56ebcad2a029836e7e6858d24be56b0ffe73736acb9970faf848",
+      "export_sha256": "35a7697fbd1811adaa5ea813641f5a50418bf7e0b5db5872596fbc6fe5dd1149",
       "packaging_changes": [
         "Portable output and baseline prompt paths"
       ]
     },
     {
       "upstream_project_path": "experiments/run_scene_first_matched.py",
-      "original_sha256": "e9267f63730543cbb9f4f1b45d51b817ae9ae04c4b9ae2d4ee4804fabf63c306",
+      "original_sha256": "7ed0254d51437b22c3b96cdc52fc2d890820d6b952ad67a61b4cdaa6de3ecf1d",
       "export_path": "experiments/run_scene_first_matched.py",
-      "export_sha256": "f57a5186b21d075f0e6fd86dbde7a192b84d5c8f0245ffd01df431a836643431",
+      "export_sha256": "f374b3107743a0d05f4dad564e86db48a1f469a2b5f107546472bd93ca3d1168",
       "packaging_changes": [
         "Portable comparison output"
       ]
@@ -153,13 +153,13 @@
     },
     {
       "upstream_project_path": "experiments/train_tie_script_comparator.py",
-      "original_sha256": "bfee69bbbd8d3d2bd744399b98bc33fba58e9b4da152f95149a95befa4231280",
+      "original_sha256": "c8d9adc9aade77530d62c061b510d2852e4351968bb15e57fb990b9b3bee84f7",
       "export_path": "experiments/train_tie_script_comparator.py",
-      "export_sha256": "bfee69bbbd8d3d2bd744399b98bc33fba58e9b4da152f95149a95befa4231280",
+      "export_sha256": "c8d9adc9aade77530d62c061b510d2852e4351968bb15e57fb990b9b3bee84f7",
       "packaging_changes": []
     }
   ],
   "training_started": false,
   "model_files_copied": false,
-  "updated_at_beijing": "2026-10-12T14:19:08.208594+08:00"
+  "updated_at_beijing": "2026-10-13T10:29:40.244645+08:00"
 }
