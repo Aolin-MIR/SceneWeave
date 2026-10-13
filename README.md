@@ -6,6 +6,10 @@ SceneWeave adapts prose into connected screenplays and stage scripts. Its centra
 
 Authors can begin with a scene, relationships, structure, or medium-specific expression. Source-conditioned entry selection is optional assistance. Plot, character actions, relationships, ending, background, props, arrangement, and expression can change within the creative brief. Fidelity, conflict intensity, ambiguity, and closure do not automatically determine quality.
 
+## Blind review
+
+[Open the bilingual blind-review website](https://107.174.142.168:8060/). The study presents eight anonymous pairs of complete scenes with preceding and following context. English originals and Chinese translations are provided; readers choose A, B, a tie, or unable to judge, and briefly explain their choice. Method identities remain hidden during review.
+
 ## Architecture
 
 ![SceneWeave framework](docs/framework.png)
