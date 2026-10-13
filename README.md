@@ -4,7 +4,11 @@ SceneWeave adapts prose into connected screenplays and stage scripts. Its centra
 
 Authors can begin with a scene, relationships, structure, or medium-specific expression. Source-conditioned entry selection is optional assistance. Plot, character actions, relationships, ending, background, props, arrangement, and expression can change within the creative brief. Fidelity, conflict intensity, ambiguity, and closure do not automatically determine quality.
 
-The public arXiv paper link will be added after the preprint is posted. [Models and experimental materials](https://doi.org/10.5281/zenodo.23329962) are available on Zenodo.
+## Paper
+
+[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](docs/SceneWeave.pdf)
+
+[Models and experimental materials](https://doi.org/10.5281/zenodo.23329962) are available on Zenodo.
 
 ## Blind review
 
@@ -28,7 +32,7 @@ The controllers maintain actual written material, program versions, and explicit
 | `third_party/` | Pinned official baseline prompts and the original StrandsDecider implementation |
 | `tests/` | Offline contracts, controller behavior, preference symmetry, and portable-data checks |
 
-Model weights, adapters, optimizer state, credentials, run logs, and the manuscript are excluded. This is a **public research code and data snapshot**; included third-party texts retain their original terms. No blanket license for redistributing all data is inferred.
+Model weights, adapters, optimizer state, credentials, run logs, and manuscript source files are excluded. The paper PDF is included. This is a **public research code and data snapshot**; included third-party texts retain their original terms. No blanket license for redistributing all data is inferred.
 
 The paper's final comparator and hybrid-writer training settings are recorded in [`configs/paper_comparator_training.json`](configs/paper_comparator_training.json) and [`configs/paper_hybrid_writer_training.json`](configs/paper_hybrid_writer_training.json). [`evaluation/dramabench/README.md`](evaluation/dramabench/README.md) describes the complete-script content evaluation, its required inputs, and the authorized gateway adapter.
 
