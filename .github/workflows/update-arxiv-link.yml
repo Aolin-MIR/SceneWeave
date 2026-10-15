@@ -1,6 +1,10 @@
 name: Update paper link after arXiv announcement
 
 on:
+  push:
+    paths:
+      - .github/workflows/update-arxiv-link.yml
+      - tools/update_arxiv_link.py
   schedule:
     - cron: '23 2,14 * * *'
   workflow_dispatch:
