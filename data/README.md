@@ -29,3 +29,7 @@ This is a private research snapshot of prepared data the project already holds. 
 `writer/candidates/snapshot_588/` preserves eight actual candidate files and their original immutable manifest. Its 588 records include published-target and synthetic records with their original provenance. Complete-token checks, cross-stage duplicates and current owner protection are still pending where stated by the manifest. Qualified new TRAIN remains zero; this snapshot does not authorize writer training.
 
 The 113-record increment is an overlapping delta view of the primary stage files. All archived files physically contain 701 rows, representing 588 primary candidates. `tools/inspect_writer_candidates.py` checks exact delta membership and prevents counting that view as new independent data.
+
+## Balanced writer release, 2026-10-16
+
+The new [10,000-record release](writer/releases/20261016/README.md) supersedes the earlier snapshots for the current data delivery. Historical files above remain unchanged. The release includes fixed writer DEV160 and packages the existing evaluator snapshot and auxiliary supervision separately. Full text is delivered through the authorized private research release; the public inventory preserves record counts and checksums. No model training on the new release is claimed.

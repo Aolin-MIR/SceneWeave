@@ -1,0 +1,95 @@
+{
+  "schema": "sceneweave-writer-evaluator-data-20261016",
+  "created_at_beijing": "2026-10-16T16:40:34.951287+08:00",
+  "writer_train_records": 10000,
+  "writer_dev_records": 160,
+  "writer_task_counts": {
+    "revise_text": 1666,
+    "adapt_scene": 1667,
+    "continue_script": 1666,
+    "revise_with_feedback": 1667,
+    "write_scene_from_synopsis": 1667,
+    "adaptation_process": 1667
+  },
+  "training_started_on_this_release": false,
+  "new_targets_origin": "6000 synthetic Wiki gpt-6-luna records appended to the existing 4000-record release; original record provenance retained",
+  "quality_scope": "Automated task-quality checks, complete-input token limits, exact/near-duplicate checks and known held-out protection. No human aesthetic superiority claim.",
+  "topic_scope": "Diverse source works and optional topic briefs; topic briefs are not independently verified genre labels.",
+  "evaluator_scope": "Existing published comparator snapshot and auxiliary supervision; original human/synthetic origin, splits and labels preserved. No new evaluator training claimed.",
+  "redistribution": "Private research delivery; source-specific terms apply. No blanket source-text license.",
+  "files": [
+    {
+      "path": "writer/train.jsonl",
+      "bytes": 192218556,
+      "sha256": "71df4aad7a030100dc1148c1c53970e55d803a4b8a30d5cd601b21c71af8ac92",
+      "records": 10000
+    },
+    {
+      "path": "writer/dev.jsonl",
+      "bytes": 7917437,
+      "sha256": "a482cd138675339a307f5a2bb02713f27dbf0738781ddd9168162297e5da0e8e",
+      "records": 160
+    },
+    {
+      "path": "writer/production_2000_completion.json",
+      "bytes": 534,
+      "sha256": "5036550acb2289395fafe104c732c27d92b54d2ca8c503543c625b07bff3d690"
+    },
+    {
+      "path": "writer/production_2000_protocol.json",
+      "bytes": 6665,
+      "sha256": "f5e610731b49a94b0315adee58d7dd3f925b88ba5f11b3e344c49dc93a115c2a"
+    },
+    {
+      "path": "writer/production_4000_completion.json",
+      "bytes": 533,
+      "sha256": "e4807c498c063e4c1755c46a890df5e6a35293cac855dcaf23d519a450566741"
+    },
+    {
+      "path": "evaluator/comparator_training_data.json",
+      "bytes": 38473615,
+      "sha256": "5d19625ab4f384a10fd776c23beebd902516968753633309876716575a4fdbc3",
+      "split_counts": {
+        "train": 3000,
+        "dev": 83,
+        "test": 10
+      }
+    },
+    {
+      "path": "evaluator/release_report.json",
+      "bytes": 5348,
+      "sha256": "6d519256676a6431f9fbcb881afc4127af4a84fc968699f2bc178aabfd8e2fc6"
+    },
+    {
+      "path": "evaluator/auxiliary/expert_creativity_evaluation.json",
+      "bytes": 15622989,
+      "sha256": "c19c089d673a1e5365cbcf0454177b3b97654e35620e03fe86816cf7ae856c8d"
+    },
+    {
+      "path": "evaluator/auxiliary/expert_edit_operations.jsonl",
+      "bytes": 4194943,
+      "sha256": "a26c6bfdd129d99d2b44ff05f72106ad5192e75cde43c974e24a9b8129a22765",
+      "records": 1063
+    },
+    {
+      "path": "evaluator/auxiliary/expert_revisions.json",
+      "bytes": 6884156,
+      "sha256": "6c19e407626c8297a5798ec4d0ed60e71141ff872120c76a62a7673fd76cd495"
+    },
+    {
+      "path": "evaluator/auxiliary/expert_story_evaluation.json",
+      "bytes": 742969,
+      "sha256": "4fd39bcbe80a1d6a9e5932d4af864cfcda39ca22bd8d1266b40ddcebd75fc8d2"
+    },
+    {
+      "path": "evaluator/auxiliary/hanna_dimensions.json",
+      "bytes": 2801499,
+      "sha256": "6038139a1e2c74905edb2b273a3409fd0666bb667bfdd032a28935763124d1c3"
+    }
+  ],
+  "archive": {
+    "name": "sceneweave_writer10000_evaluator_data.zip",
+    "bytes": 59206646,
+    "sha256": "37e7d03d35d771ea80e8bffdcc8b122a4ac8528f9c75b947f9dea47335561b3c"
+  }
+}
