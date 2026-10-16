@@ -6,7 +6,7 @@ Authors can begin with a scene, relationships, structure, or medium-specific exp
 
 ## Paper
 
-[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](https://arxiv.org/abs/2610.21737) · [HTML](https://arxiv.org/html/2610.21737) · [PDF on arXiv](https://arxiv.org/pdf/2610.21737) · [PDF mirror](docs/SceneWeave.pdf)
+[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](https://arxiv.org/abs/2610.21737) · [HTML](https://arxiv.org/html/2610.21737) · [PDF on arXiv](https://arxiv.org/pdf/2610.21737)
 
 [Models and experimental materials](https://doi.org/10.5281/zenodo.23329962) are available on Zenodo.
 
@@ -32,7 +32,7 @@ The controllers maintain actual written material, program versions, and explicit
 | `third_party/` | Pinned official baseline prompts and the original StrandsDecider implementation |
 | `tests/` | Offline contracts, controller behavior, preference symmetry, and portable-data checks |
 
-Model weights, adapters, optimizer state, credentials, run logs, and manuscript source files are excluded. The paper PDF is included. This is a **public research code and data snapshot**; included third-party texts retain their original terms. No blanket license for redistributing all data is inferred.
+Model weights, adapters, optimizer state, credentials, run logs, and manuscript source files are excluded. This is a **public research code and data snapshot**; included third-party texts retain their original terms. No blanket license for redistributing all data is inferred.
 
 The paper's final comparator and hybrid-writer training settings are recorded in [`configs/paper_comparator_training.json`](configs/paper_comparator_training.json) and [`configs/paper_hybrid_writer_training.json`](configs/paper_hybrid_writer_training.json). [`evaluation/dramabench/README.md`](evaluation/dramabench/README.md) describes the complete-script content evaluation, its required inputs, and the authorized gateway adapter.
 
