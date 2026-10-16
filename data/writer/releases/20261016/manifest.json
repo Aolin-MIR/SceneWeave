@@ -1,5 +1,5 @@
 {
-  "schema": "sceneweave-writer-evaluator-data-20261016",
+  "schema": "sceneweave-writer-evaluator-data-20261016-v2",
   "created_at_beijing": "2026-10-16T16:40:34.951287+08:00",
   "writer_train_records": 10000,
   "writer_dev_records": 160,
@@ -15,7 +15,7 @@
   "new_targets_origin": "6000 synthetic Wiki gpt-6-luna records appended to the existing 4000-record release; original record provenance retained",
   "quality_scope": "Automated task-quality checks, complete-input token limits, exact/near-duplicate checks and known held-out protection. No human aesthetic superiority claim.",
   "topic_scope": "Diverse source works and optional topic briefs; topic briefs are not independently verified genre labels.",
-  "evaluator_scope": "Existing published comparator snapshot and auxiliary supervision; original human/synthetic origin, splits and labels preserved. No new evaluator training claimed.",
+  "evaluator_scope": "Original 3000-pair snapshot retained; additional 123 human pairs included separately and in expanded 3123-pair TRAIN. DEV/TEST and original group weights unchanged. Auxiliary data remain separate.",
   "redistribution": "Private research delivery; source-specific terms apply. No blanket source-text license.",
   "files": [
     {
@@ -85,11 +85,52 @@
       "path": "evaluator/auxiliary/hanna_dimensions.json",
       "bytes": 2801499,
       "sha256": "6038139a1e2c74905edb2b273a3409fd0666bb667bfdd032a28935763124d1c3"
+    },
+    {
+      "path": "evaluator/comparator_training_data_expanded_3123.json",
+      "bytes": 40336911,
+      "sha256": "98abf2a94d11e67c5ac911e852e69ccefda7674fcb92b86ff96764fdd6ed4664"
+    },
+    {
+      "path": "evaluator/real_script_expansion_20261016/new_real_script_preferences.json",
+      "bytes": 1575282,
+      "sha256": "5d814773810cea26cda479d25800ffdced4386ee998af8faaaf24799ab9fa787"
+    },
+    {
+      "path": "evaluator/real_script_expansion_20261016/completion.json",
+      "bytes": 1998,
+      "sha256": "526c2e13787a20e2349969022e8c8f9f894f2db5df3828d09c48f0a5fe58e438"
+    },
+    {
+      "path": "evaluator/real_script_expansion_20261016/release_summary.json",
+      "bytes": 3801,
+      "sha256": "bd9d38de033f154234121f40602238999f10c0290cb2796d6b6a5e317b441a86"
+    },
+    {
+      "path": "evaluator/real_script_expansion_20261016/validation.json",
+      "bytes": 404,
+      "sha256": "640a3f14e7aca944a7dc0237c4cc65ccc462420ea3e5611e9575f23212ebbafe"
     }
   ],
+  "evaluator_expansion": {
+    "additional_human_pairs": 123,
+    "connected_task_groups": 34,
+    "expanded_train_pairs": 3123,
+    "dev_pairs": 83,
+    "test_pairs": 10,
+    "sources": {
+      "lmarena-ai/arena-human-preference-140k": 5,
+      "openai/coval": 6,
+      "Anthropic/hh-rlhf": 2,
+      "OpenAssistant/oasst2": 103,
+      "HannahRoseKirk/prism-alignment": 7
+    },
+    "original_labels_and_group_weights_preserved": true,
+    "training_started": false
+  },
   "archive": {
-    "name": "sceneweave_writer10000_evaluator_data.zip",
-    "bytes": 59206646,
-    "sha256": "37e7d03d35d771ea80e8bffdcc8b122a4ac8528f9c75b947f9dea47335561b3c"
+    "name": "sceneweave_writer10000_evaluator_data_v2.zip",
+    "bytes": 72704677,
+    "sha256": "1f3ab62d16f52360ab603ad5331a0d7084094b0d1633ab86e70adfa45fe7c59f"
   }
 }
