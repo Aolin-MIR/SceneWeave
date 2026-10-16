@@ -15,6 +15,12 @@ SceneWeave 将叙事散文改编为前后连贯的影视剧本或舞台剧本。
 
 [模型与实验材料](https://doi.org/10.5281/zenodo.23329962)已发布于 Zenodo。
 
+## Demo
+
+[**在线 Demo — 中文**](https://looloothetoilet.duckdns.org:9443/?entry=adaptation&lang=zh) · [**English demo**](https://looloothetoilet.duckdns.org:9443/?entry=adaptation&lang=en)
+
+导入 TXT、Markdown 或 EPUB 原著，填写改编要求，比较不同场面试写，再形成并修订完整剧本。界面语言与剧本语言可分别选择。在线演示通过 API 完成写作与审读，生成时需使用自己的 API Key。
+
 ## 盲评
 
 [打开中英双语盲评网站](https://107.174.142.168:8060/)。实验展示八组匿名场面文本，每组包含完整场面及其前后文。页面提供英文原文和中文译文；读者可以选择 A、B、平局或无法判断，并简述理由。评审过程中不显示方法身份。

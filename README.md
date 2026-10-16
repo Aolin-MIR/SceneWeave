@@ -15,6 +15,12 @@ Authors can begin with a scene, relationships, structure, or medium-specific exp
 
 [Models and experimental materials](https://doi.org/10.5281/zenodo.23329962) are available on Zenodo.
 
+## Demo
+
+[**Live demo — English**](https://looloothetoilet.duckdns.org:9443/?entry=adaptation&lang=en) · [**中文演示**](https://looloothetoilet.duckdns.org:9443/?entry=adaptation&lang=zh)
+
+Import a TXT, Markdown, or EPUB source, set an adaptation brief, and explore alternative scenes before developing and revising the complete screenplay. The interface and screenplay languages can be selected independently. The hosted demo uses API-based writing and review; generation requires your own API key.
+
 ## Blind review
 
 [Open the bilingual blind-review website](https://107.174.142.168:8060/). The study presents eight anonymous pairs of complete scenes with preceding and following context. English originals and Chinese translations are provided; readers choose A, B, a tie, or unable to judge, and briefly explain their choice. Method identities remain hidden during review.
