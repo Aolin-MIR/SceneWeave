@@ -1,3 +1,8 @@
+<p align="right">
+  <a href="README.md"><img alt="English" src="https://img.shields.io/badge/Language-English-blue"></a>
+  <a href="README.zh-CN.md"><img alt="简体中文" src="https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-blue"></a>
+</p>
+
 # SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation
 
 SceneWeave adapts prose into connected screenplays and stage scripts. Its central operation is to **write alternative realizations of a scene, then use those realizations to reconsider the whole adaptation**: character treatment, preceding preparation, subsequent development, and scene organization. A comparator learned from human and explicitly identified synthetic preferences supports selection among complete drafts.
