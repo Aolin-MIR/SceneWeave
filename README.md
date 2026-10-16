@@ -6,7 +6,7 @@ Authors can begin with a scene, relationships, structure, or medium-specific exp
 
 ## Paper
 
-[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](https://arxiv.org/abs/2610.21737)
+[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](https://arxiv.org/abs/2610.21737) · [Full text on arXiv](https://arxiv.org/html/2610.21737) · [PDF](docs/SceneWeave.pdf)
 
 [Models and experimental materials](https://doi.org/10.5281/zenodo.23329962) are available on Zenodo.
 
