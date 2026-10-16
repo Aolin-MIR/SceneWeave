@@ -6,7 +6,7 @@ Authors can begin with a scene, relationships, structure, or medium-specific exp
 
 ## Paper
 
-[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](docs/SceneWeave.pdf)
+[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](https://arxiv.org/abs/2610.21737)
 
 [Models and experimental materials](https://doi.org/10.5281/zenodo.23329962) are available on Zenodo.
 
@@ -170,14 +170,17 @@ pytest -q tests/test_tie_script_comparator.py
 
 ## Citation
 
-For the paper, use the authors and title below. Add the arXiv identifier once the public record is available. Cite the released models and experimental materials separately with their Zenodo DOI.
+Cite the paper using its arXiv record. Cite the released models and experimental materials separately with their Zenodo DOI.
 
 ```bibtex
-@unpublished{li2026sceneweave,
+@misc{li2026sceneweave,
   author = {Li, Aolin and Xu, Xiao and Xie, Haihua},
   title = {SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation},
   year = {2026},
-  note = {Manuscript}
+  eprint = {2610.21737},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url = {https://arxiv.org/abs/2610.21737}
 }
 
 @misc{li2026sceneweave_artifacts,
