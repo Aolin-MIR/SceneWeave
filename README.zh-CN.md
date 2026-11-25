@@ -21,7 +21,7 @@ SceneWeave 将叙事散文改编为前后连贯的影视剧本或舞台剧本。
 
 ## 产品展示
 
-[**散角龙 · 电影 Agent**](https://github.com/Aolin-MIR/morpho-novel-film) 把中文小说做成全书宣传片、完整单故事和长片。使用 SceneWeave 完成台本创作，结合视频制作工具与美学 Skills。
+[**散角龙 · 电影 Agent**](https://github.com/Aolin-MIR/morpho-novel-film) 把小说做成全书宣传片、完整单故事和长片。使用 SceneWeave 完成台本创作，结合视频制作工具与美学 Skills。
 
 [![《五香街》 女主伸手越过画框，取走字幕里的「不」字](showcase/sanjiaolong/wuxiangjie.jpg)](https://github.com/Aolin-MIR/morpho-novel-film)
 

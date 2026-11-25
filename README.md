@@ -21,9 +21,9 @@ Import a TXT, Markdown, or EPUB source, set an adaptation brief, and explore alt
 
 ## From screenplay to film
 
-[**散角龙 · Film Agent**](https://github.com/Aolin-MIR/morpho-novel-film) adapts Chinese novels into book trailers, standalone stories, and full-length adaptations. It uses SceneWeave for screenwriting alongside film production tools and aesthetic skills.
+[**Sanjiaolong Film Agent**](https://github.com/Aolin-MIR/morpho-novel-film) turns novels into book trailers, standalone short films, and feature-length adaptations. It uses SceneWeave for screenwriting and combines film production tools with aesthetic skills.
 
-[![Film still from Wuxiang Street. The protagonist reaches out of the frame to take the character 不 from the subtitle.](showcase/sanjiaolong/wuxiangjie.jpg)](https://github.com/Aolin-MIR/morpho-novel-film)
+[![Film still from Wuxiang Street. The protagonist reaches out of the frame to remove a word from the subtitle.](showcase/sanjiaolong/wuxiangjie.jpg)](https://github.com/Aolin-MIR/morpho-novel-film)
 
 *Wuxiang Street · She Will Testify*
 
