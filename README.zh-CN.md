@@ -9,9 +9,7 @@ SceneWeave 将叙事散文改编为前后连贯的影视剧本或舞台剧本。
 
 创作者可以从场面、人物关系、结构或媒介表达入手。根据原作选择切入点是可选的辅助功能。在改编任务允许的范围内，情节、人物行动、关系、结局、背景、道具、场面编排和表达方式都可以改变。忠于原作、冲突强度、含混程度和收束方式本身都不能决定质量。
 
-## 论文
-
-[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](https://arxiv.org/abs/2610.21737) · [HTML 全文](https://arxiv.org/html/2610.21737) · [arXiv PDF](https://arxiv.org/pdf/2610.21737)
+## 研究材料
 
 [模型与实验材料](https://doi.org/10.5281/zenodo.23329962)已发布于 Zenodo。
 
@@ -181,19 +179,9 @@ pytest -q tests/test_tie_script_comparator.py
 
 ## 引用
 
-引用论文时请使用 arXiv 记录；引用已发布的模型和实验材料时请另引 Zenodo DOI。
+引用已发布的模型和实验材料时请使用其 Zenodo DOI。
 
 ```bibtex
-@misc{li2026sceneweave,
-  author = {Li, Aolin and Xu, Xiao and Xie, Haihua},
-  title = {SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation},
-  year = {2026},
-  eprint = {2610.21737},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CL},
-  url = {https://arxiv.org/abs/2610.21737}
-}
-
 @misc{li2026sceneweave_artifacts,
   author = {Li, Aolin and Xu, Xiao and Xie, Haihua},
   title = {SceneWeave: Models and Experimental Materials for Dramatic Adaptation},

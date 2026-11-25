@@ -9,9 +9,7 @@ SceneWeave adapts prose into connected screenplays and stage scripts. Its centra
 
 Authors can begin with a scene, relationships, structure, or medium-specific expression. Source-conditioned entry selection is optional assistance. Plot, character actions, relationships, ending, background, props, arrangement, and expression can change within the creative brief. Fidelity, conflict intensity, ambiguity, and closure do not automatically determine quality.
 
-## Paper
-
-[SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation](https://arxiv.org/abs/2610.21737) · [HTML](https://arxiv.org/html/2610.21737) · [PDF on arXiv](https://arxiv.org/pdf/2610.21737)
+## Research artifacts
 
 [Models and experimental materials](https://doi.org/10.5281/zenodo.23329962) are available on Zenodo.
 
@@ -181,19 +179,9 @@ pytest -q tests/test_tie_script_comparator.py
 
 ## Citation
 
-Cite the paper using its arXiv record. Cite the released models and experimental materials separately with their Zenodo DOI.
+Cite the released models and experimental materials using their Zenodo DOI.
 
 ```bibtex
-@misc{li2026sceneweave,
-  author = {Li, Aolin and Xu, Xiao and Xie, Haihua},
-  title = {SceneWeave: Audience-Guided Scene Exploration for Dramatic Adaptation},
-  year = {2026},
-  eprint = {2610.21737},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CL},
-  url = {https://arxiv.org/abs/2610.21737}
-}
-
 @misc{li2026sceneweave_artifacts,
   author = {Li, Aolin and Xu, Xiao and Xie, Haihua},
   title = {SceneWeave: Models and Experimental Materials for Dramatic Adaptation},
