@@ -27,6 +27,10 @@ Import a TXT, Markdown, or EPUB source, set an adaptation brief, and explore alt
 
 *Wuxiang Street · She Will Testify*
 
+## From book to audio drama
+
+[**Audio Drama Agent**](https://github.com/Aolin-MIR/wiki/tree/audio-drama/agent/audio_drama) turns books into episodic audio dramas, from script adaptation and casting through sound design, mixing, and episode review. GitHub access to the repository is required.
+
 ## Blind review
 
 [Open the bilingual blind-review website](https://107.174.142.168:8060/). The study presents eight anonymous pairs of complete scenes with preceding and following context. English originals and Chinese translations are provided; readers choose A, B, a tie, or unable to judge, and briefly explain their choice. Method identities remain hidden during review.
